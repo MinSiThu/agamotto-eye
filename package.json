@@ -1,0 +1,24 @@
+{
+  "name": "agamotto-eye",
+  "version": "1.0.0",
+  "description": "javascript image processing framework",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "image",
+    "processing",
+    "front-end",
+    "node.js",
+    "framework",
+    "simple"
+  ],
+  "author": "min si thu",
+  "license": "MIT"
+}

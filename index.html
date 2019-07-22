@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Agamotto Eye</title>
+</head>
+
+<body>
+    <h1>Agamotto</h1>
+    <img id="C" alt=""/>
+</body>
+<script src="/dist/agamotto-eye.min.js"></script>
+<script async>
+    /*let image = document.createElement("img");
+    image.onload = function(){
+        document.body.appendChild(image)
+    }
+    image.src= "https://www.belightsoft.com/products/imagetricks/img/core-image-filters@2x.jpg"*/
+(async function(){
+    let processor = await AgamottoEye.fromImageURL("/points.png");
+    //document.getElementById("C").src = processor.getDataURL()
+    console.log(processor.getPixels());
+    
+})()
+</script>
+</html>
