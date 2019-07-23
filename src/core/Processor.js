@@ -30,18 +30,18 @@ class Processor{
       }
   
       getPixels(){
-          let imageData = this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height).data;
+          let {data,width} = this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height);
           let pixels = [];
-          for (let index = 0; index < imageData.length; index+=4) {
-              let redIndex = imageData[index];
-              let greenIndex = imageData[index+1];
-              let blueIndex = imageData[index+2];
-              let alphaIndex = imageData[index+3];
+          for (let index = 0; index < data.length; index+=4) {
+              let redIndex = data[index];
+              let greenIndex = data[index+1];
+              let blueIndex = data[index+2];
+              let alphaIndex = data[index+3];
               pixels.push(
                   new Pixel({redIndex,greenIndex,blueIndex,alphaIndex})
               )
           }
-          return pixels;
+          return {pixels,width};
       }
 }
 

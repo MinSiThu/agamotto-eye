@@ -23,6 +23,12 @@ class Pixel{
         this.redIndex = this.greenIndex = this.blueIndex = result;
         this.alphaIndex = 225;
     }
+
+    brighten(adjustment){
+        this.redIndex = this.redIndex + adjustment;
+        this.greenIndex = this.greenIndex + adjustment;
+        this.blueIndex = this.blueIndex + adjustment;
+    }
 }
 
 module.exports = Pixel;
