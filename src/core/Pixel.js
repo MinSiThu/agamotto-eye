@@ -8,7 +8,7 @@ class Pixel{
         this.alphaIndex = alphaIndex;
     }
 
-    toGrayScale(){
+    getResult(){
         let result;
         if(this.redIndex > this.greenIndex && this.redIndex > this.blueIndex){
             result = ( (0.7 * this.redIndex) + (0.4 * this.greenIndex) + (0.3 * this.blueIndex) + (0.1 * this.alphaIndex) )
@@ -19,8 +19,19 @@ class Pixel{
         }else{
             result = ( (0.35 * this.redIndex) + (0.35 * this.greenIndex) + (0.35 * this.blueIndex)+ (0.1*this.alphaIndex) )
         }
-        
+        return result;
+    }
+
+    toGrayScale(){
+        let result = this.getResult();
         this.redIndex = this.greenIndex = this.blueIndex = result;
+        this.alphaIndex = 225;
+    }
+
+    threshold(threshold){
+        let result = this.getResult();
+        let value = result>threshold?225:0;
+        this.redIndex = this.greenIndex = this.blueIndex = value;
         this.alphaIndex = 225;
     }
 

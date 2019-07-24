@@ -6,7 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <h1>Agamotto Eye</h1>
+    <div>
+        <img id="A" alt="" src="/test-imgs/people.webp"/>
+        <img id="C" alt=""/>
+    </div>
 </body>
+
+<script src="/dist/agamotto-eye.min.js"></script>
+<script async>
+    /**let image = document.createElement("img");
+    image.onload = function(){
+        document.body.appendChild(image)
+    }
+    image.src= "https://www.belightsoft.com/products/imagetricks/img/core-image-filters@2x.jpg"**/
+
+    (async function(){
+    let processor = await AgamottoEye.fromImageURL("/test-imgs/people.webp");
+    let pixelMaster = processor.getPixelMaster(); 
+    pixelMaster.threshold();
+    processor.renderImage(pixelMaster);
+
+    document.getElementById("C").src = processor.getDataURL();
+    })()
+</script>
 </html>

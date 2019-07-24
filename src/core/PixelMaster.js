@@ -1,6 +1,7 @@
 class PixelMaster{
     constructor({pixels,width}){
         this.pixels = pixels;
+        this.originalWidth = width;
         this.width = width/4;
     }
 
@@ -26,9 +27,15 @@ class PixelMaster{
         })
     }
 
-    brighten(adjustment=0){
+    brighten(adjustment=80){
         this.pixels.forEach(pixel=>{
             return pixel.brighten(adjustment)
+        })
+    }
+
+    threshold(threshold=100){
+        this.pixels.forEach(pixel=>{
+            return pixel.threshold(threshold)
         })
     }
 }
