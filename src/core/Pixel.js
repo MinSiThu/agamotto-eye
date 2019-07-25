@@ -8,6 +8,22 @@ class Pixel{
         this.alphaIndex = alphaIndex;
     }
 
+    getRedIndex(){
+        return this.redIndex;
+    }
+
+    getGreenIndex(){
+        return this.greenIndex;
+    }
+
+    getBlueIndex(){
+        return this.blueIndex;
+    }
+
+    getAlphaIndex(){
+        return this.alphaIndex;
+    }
+
     getResult(){
         let result;
         if(this.redIndex > this.greenIndex && this.redIndex > this.blueIndex){

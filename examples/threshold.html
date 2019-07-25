@@ -10,7 +10,7 @@
 <body>
     <h1>Agamotto Eye</h1>
     <div>
-        <img id="A" alt="" src="/test-imgs/lena.png"/>
+        <img id="A" alt="" src="/test-imgs/people.webp"/>
         <img id="C" alt=""/>
     </div>
 </body>
@@ -24,9 +24,9 @@
     image.src= "https://www.belightsoft.com/products/imagetricks/img/core-image-filters@2x.jpg"**/
 
     (async function(){
-    let processor = await AgamottoEye.fromImageURL("/test-imgs/lena.png");
+    let processor = await AgamottoEye.fromImageURL("/test-imgs/people.webp");
     let pixelMaster = processor.getPixelMaster(); 
-    pixelMaster.toGrayScale();
+    pixelMaster.threshold();
     processor.renderImage(pixelMaster);
 
     document.getElementById("C").src = processor.getDataURL();

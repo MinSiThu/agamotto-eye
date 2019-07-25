@@ -1,4 +1,5 @@
 let Processor = require("./Processor");
+let Kernels = require("../kernels");
 
 class AgamottoEye{
 
@@ -13,6 +14,8 @@ class AgamottoEye{
         })
     }
 }
+
+AgamottoEye.kernels = Kernels;
 
 if(window){
     window.AgamottoEye = AgamottoEye;

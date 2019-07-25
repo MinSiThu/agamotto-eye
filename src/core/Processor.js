@@ -12,8 +12,8 @@ class Processor{
       }
 
       renderImage(pixelMaster){
-        let pixels = pixelMaster.fromPixelsTo8Clamp();
-        let imageData = new ImageData(pixels,this.WIDTH);
+        let pixels = pixelMaster.getPixels();
+        let imageData = new ImageData(pixels,this.WIDTH,this.HEIGHT);
         this.ctx.putImageData(imageData,0,0)
       }
   
@@ -22,7 +22,7 @@ class Processor{
       }
 
       getPixelMaster(){
-        return new PixelMaster(this.getPixels());
+        return new PixelMaster(this.ctx.getImageData(0,0,this.canvas.width,this.canvas.height));
       }
   
       getImageData(){

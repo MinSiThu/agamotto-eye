@@ -1,5 +1,0 @@
-class BlurKernal {
-    constructor(blurIndex){
-        
-    }
-}
