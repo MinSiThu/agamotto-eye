@@ -26,9 +26,10 @@
     (async function(){
     let processor = await AgamottoEye.fromImageURL("/test-imgs/lena.png");
     let pixelMaster = processor.getPixelMaster(); 
-    pixelMaster.toGrayScale();
+    pixelMaster.renderKernel(AgamottoEye.kernels.sharpenKernel);
     processor.renderImage(pixelMaster);
-
+    console.log(processor.getDataURL());
+    
     document.getElementById("C").src = processor.getDataURL();
     })()
 </script>

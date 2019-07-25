@@ -12,7 +12,7 @@ class Processor{
       }
 
       renderImage(pixelMaster){
-        let pixels = pixelMaster.getPixels();
+        let pixels = pixelMaster.getPixels();        
         let imageData = new ImageData(pixels,this.WIDTH,this.HEIGHT);
         this.ctx.putImageData(imageData,0,0)
       }

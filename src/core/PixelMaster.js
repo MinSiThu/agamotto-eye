@@ -85,7 +85,6 @@ class PixelMaster{
         let outputPixels = [];
         for (let y = 0; y < this.originalHeight; y++) {
             for (let x = 0; x < this.originalWidth; x++) {
-                console.log("reached here");
                 let currentX = x;
                 let currentY = y;
                 let destPixel = (y*this.originalWidth+x)*4;
@@ -97,27 +96,66 @@ class PixelMaster{
                         let currentPixelSideX = currentX + matrixX - halfSide;
                         if(currentPixelSideX > 0 && currentPixelSideX < this.originalWidth && currentPixelSideY > 0 && currentPixelSideY < this.originalHeight){
                             let srcPixel = (currentPixelSideY*this.originalWidth+currentPixelSideX)*4;
-                            let kernelValue = (matrixY*side+matrixX);
-                            R += originalPixels[srcPixel] * kernelValue;
-                            G += originalPixels[srcPixel+1] * kernelValue;
-                            B += originalPixels[srcPixel+2] * kernelValue;
-                            A += originalPixels[srcPixel+3] * kernelValue;
+                            let kernelWeight = kernel[matrixY*side+matrixX];
+                            R += originalPixels[srcPixel] * kernelWeight;
+                            G += originalPixels[srcPixel+1] * kernelWeight;
+                            B += originalPixels[srcPixel+2] * kernelWeight;
+                            A += originalPixels[srcPixel+3] * kernelWeight;
                         }
                     }
                 }
                 
-                
                 outputPixels[destPixel] = R;
                 outputPixels[destPixel+1] = G;
                 outputPixels[destPixel+2] = B;
-                outputPixels[destPixel+3] = A;
+                outputPixels[destPixel+3] = A +(255-A) ;
             }
         }
-        //console.log(outputPixels);
-        
-        this.pixels = outputPixels;
-        console.log(this.pixels);
-        
+        this.pixels = new Uint8ClampedArray(outputPixels);
+    }
+
+    renderKernel2(kernel){
+            var side = Math.round(Math.sqrt(kernel.length));
+            var halfSide = Math.floor(side/2);
+            var src = this.pixels;
+            var sw = this.originalWidth;
+            var sh = pixels.originalHeight;
+            // pad output by the convolution matrix
+            var w = sw;
+            var h = sh;
+            var output = []
+            var dst = output.data;
+            // go through the destination image pixels
+            var alphaFac = opaque ? 1 : 0;
+            for (var y=0; y<h; y++) {
+                for (var x=0; x<w; x++) {
+                var sy = y;
+                var sx = x;
+                var dstOff = (y*w+x)*4;
+                // calculate the weighed sum of the source image pixels that
+                // fall under the convolution matrix
+                var r=0, g=0, b=0, a=0;
+                for (var cy=0; cy<side; cy++) {
+                    for (var cx=0; cx<side; cx++) {
+                    var scy = sy + cy - halfSide;
+                    var scx = sx + cx - halfSide;
+                    if (scy >= 0 && scy < sh && scx >= 0 && scx < sw) {
+                        var srcOff = (scy*sw+scx)*4;
+                        var wt = kernel[cy*side+cx];
+                        r += src[srcOff] * wt;
+                        g += src[srcOff+1] * wt;
+                        b += src[srcOff+2] * wt;
+                        a += src[srcOff+3] * wt;
+                    }
+                    }
+                }
+                dst[dstOff] = r;
+                dst[dstOff+1] = g;
+                dst[dstOff+2] = b;
+                dst[dstOff+3] = a + alphaFac*(255-a);
+                }
+            }
+            return output;
     }
 }
 
