@@ -13,6 +13,11 @@ let Kernels = {
                 -1,-5,-1,	
                 0,0,0,	
                 1,5,1
+    ],
+    edgeDetectorKernel:[ // Laplacian Operator
+                0,-1,0,
+                -1,4,-1,
+                0,-1,0
     ]
 }
 

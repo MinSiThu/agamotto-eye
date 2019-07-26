@@ -26,7 +26,7 @@
     (async function(){
     let processor = await AgamottoEye.fromImageURL("/test-imgs/numbers.jpg");
     let pixelMaster = processor.getPixelMaster(); 
-    pixelMaster.renderKernels(AgamottoEye.kernels.edgeDetectorKernel);
+    pixelMaster.renderKernels(AgamottoEye.kernels.sobelHorizontalKernel);
     processor.renderImage(pixelMaster);
     console.log(processor.getDataURL());
     
