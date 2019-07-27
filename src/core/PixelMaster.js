@@ -1,4 +1,5 @@
 let Pixel = require("./Pixel");
+let helpers = require("../utils/pixel-helper");
 
 class PixelMaster{
     constructor({data,width,height}){
@@ -33,10 +34,7 @@ class PixelMaster{
                             alphaIndex:this.pixels[index+3]
                         })
             pixel.toGrayScale()
-            outputPixels.push(pixel.getRedIndex());
-            outputPixels.push(pixel.getGreenIndex());
-            outputPixels.push(pixel.getBlueIndex());
-            outputPixels.push(pixel.getAlphaIndex());
+            helpers.pushPixelToArray(pixel.getIndexArray(),outputPixels)
         }
         this.pixels = new Uint8ClampedArray(outputPixels);
     }
@@ -51,10 +49,7 @@ class PixelMaster{
                             alphaIndex:this.pixels[index+3]
                         })
             pixel.brighten(adjustment)
-            outputPixels.push(pixel.getRedIndex());
-            outputPixels.push(pixel.getGreenIndex());
-            outputPixels.push(pixel.getBlueIndex());
-            outputPixels.push(pixel.getAlphaIndex());
+            helpers.pushPixelToArray(pixel.getIndexArray(),outputPixels)
         }
         this.pixels = new Uint8ClampedArray(outputPixels);
     }
@@ -69,10 +64,7 @@ class PixelMaster{
                             alphaIndex:this.pixels[index+3]
                         })
             pixel.threshold(threshold)
-            outputPixels.push(pixel.getRedIndex());
-            outputPixels.push(pixel.getGreenIndex());
-            outputPixels.push(pixel.getBlueIndex());
-            outputPixels.push(pixel.getAlphaIndex());
+            helpers.pushPixelToArray(pixel.getIndexArray(),outputPixels)
         }
         this.pixels = new Uint8ClampedArray(outputPixels);
     }
@@ -119,6 +111,8 @@ class PixelMaster{
             this.renderKernel(kernel)
         })
     }
+
+
 }
 
 module.exports = PixelMaster;

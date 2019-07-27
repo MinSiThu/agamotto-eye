@@ -4,6 +4,7 @@ let PixelMaster = require("./PixelMaster");
 class Processor{
     constructor(image){
         this.canvas = document.createElement("canvas");
+        this.image = image;
         this.canvas.width = this.WIDTH = image.width;
         this.canvas.height = this.HEIGHT = image.height;
         
@@ -15,6 +16,12 @@ class Processor{
         let pixels = pixelMaster.getPixels();        
         let imageData = new ImageData(pixels,this.WIDTH,this.HEIGHT);
         this.ctx.putImageData(imageData,0,0)
+      }
+
+      setDimensions(width,height){
+        this.canvas.width = this.WIDTH = width;
+        this.canvas.height = this.HEIGHT = height;
+        this.ctx.drawImage(this.image,0,0,width,height)
       }
   
       getDataURL(){
