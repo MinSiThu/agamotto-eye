@@ -29,15 +29,17 @@
         let processor = await AgamottoEye.fromImageURL("/test-imgs/lena.png");
         let pixelMaster = processor.getPixelMaster();
         
-        let features = pixelMaster.extractFeatures({
+        pixelMaster.extractFeatures({
             channels:3,
             size:{width:28,height:28},
             fliter:AgamottoEye.kernels.edgeDetectorKernel,
             activationFunction:AgamottoEye.ReLu,
         })
 
-        //processor.renderImage(pixelMaster)
-        document.getElementById("R").src = processor2.getRedDataURL();
+        processor.renderImage(pixelMaster)
+        document.getElementById("R").src = processor.getRedDataURL();
+        document.getElementById("G").src = processor.getGreenDataURL();
+        document.getElementById("B").src = processor.getBlueDataURL();
     })()
 </script>
 </html>

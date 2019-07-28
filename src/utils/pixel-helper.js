@@ -1,3 +1,5 @@
+let math = require("./math");
+
 let pushPixelToArray = (indexs,array)=>{
     indexs.forEach(index=>{
         array.push(index)
@@ -34,7 +36,33 @@ let applyKernelToChannel = (channel,filter)=>{
     return new Uint8ClampedArray(outputChannel)
 }
 
+let applyFunctionToChannel = (channel,Func)=>{
+    return channel.map(pixel=>{
+        return Func(pixel);
+    })
+}
+
+let maxPool = (channel)=>{
+    let outputChannel = [];
+    let dimension = Math.round(Math.sqrt(channel.length))
+    for (let y = 0; y < dimension; y+=2) {
+        for (let x = 0; x < dimension; x+=2) {
+            let upperRowPosition = (y*dimension+x);
+            let lowerRowPosition = ((y+1)*dimension+x);   
+            let number1 = channel[upperRowPosition];
+            let number2 = channel[upperRowPosition+1];
+            let number3 = channel[lowerRowPosition];
+            let number4 = channel[lowerRowPosition+1];
+            let largest = math.largestNumber([number1,number2,number3,number4]);``
+            outputChannel.push(largest);
+        }        
+    }
+    return new Uint8ClampedArray(outputChannel);
+}
+
 module.exports = {
     pushPixelToArray,
     applyKernelToChannel,
+    applyFunctionToChannel,
+    maxPool,
 }

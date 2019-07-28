@@ -14,6 +14,11 @@ class AgamottoEye{
             }
         })
     }
+    
+    static fromUint8ClampedArray(array,width){
+        let image = new ImageData(array,width);
+        return new Processor(image);
+    }
 }
 
 AgamottoEye.kernels = Kernels;

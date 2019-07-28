@@ -128,12 +128,60 @@ class PixelMaster{
 
     extractFeatures({filter=Kernels.edgeDetectorKernel,activationFunction=ReLu}){
         let channels = this.extractRGBchannels();
-        console.log(channels);
         
+        //convolute
         let redChannel = Helper.applyKernelToChannel(channels.redChannel,filter);
         let greenChannel = Helper.applyKernelToChannel(channels.greenChannel,filter);
         let blueChannel = Helper.applyKernelToChannel(channels.blueChannel,filter);
+
+        //relu
+        redChannel = Helper.applyFunctionToChannel(redChannel,activationFunction);
+        greenChannel = Helper.applyFunctionToChannel(greenChannel,activationFunction);
+        blueChannel = Helper.applyFunctionToChannel(blueChannel,activationFunction);
+
+        redChannel = Helper.maxPool(redChannel);
+        greenChannel = Helper.maxPool(greenChannel);
+        blueChannel = Helper.maxPool(blueChannel);
+
+        //second times
+        redChannel = Helper.applyKernelToChannel(redChannel,filter);
+        greenChannel = Helper.applyKernelToChannel(greenChannel,filter);
+        blueChannel = Helper.applyKernelToChannel(blueChannel,filter);
+
+        redChannel = Helper.applyFunctionToChannel(redChannel,activationFunction);
+        greenChannel = Helper.applyFunctionToChannel(greenChannel,activationFunction);
+        blueChannel = Helper.applyFunctionToChannel(blueChannel,activationFunction);
+
+        redChannel = Helper.maxPool(redChannel);
+        greenChannel = Helper.maxPool(greenChannel);
+        blueChannel = Helper.maxPool(blueChannel);
         
+        //second time max pool
+        redChannel = Helper.maxPool(redChannel);
+        greenChannel = Helper.maxPool(greenChannel);
+        blueChannel = Helper.maxPool(blueChannel);
+
+        //third time
+        redChannel = Helper.applyKernelToChannel(redChannel,filter);
+        greenChannel = Helper.applyKernelToChannel(greenChannel,filter);
+        blueChannel = Helper.applyKernelToChannel(blueChannel,filter);
+
+        redChannel = Helper.maxPool(redChannel);
+        greenChannel = Helper.maxPool(greenChannel);
+        blueChannel = Helper.maxPool(blueChannel);
+
+        redChannel = Helper.maxPool(redChannel);
+        greenChannel = Helper.maxPool(greenChannel);
+        blueChannel = Helper.maxPool(blueChannel);
+
+        redChannel = Helper.maxPool(redChannel);
+        greenChannel = Helper.maxPool(greenChannel);
+        blueChannel = Helper.maxPool(blueChannel);
+        
+        console.log(redChannel,greenChannel,blueChannel);
+        
+        
+        return {redChannel,greenChannel,blueChannel}
     }
 }
 
