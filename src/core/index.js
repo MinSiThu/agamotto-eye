@@ -1,5 +1,6 @@
 let Processor = require("./Processor");
 let Kernels = require("../kernels");
+let {ReLu} = require("../utils/math");
 
 class AgamottoEye{
 
@@ -16,6 +17,7 @@ class AgamottoEye{
 }
 
 AgamottoEye.kernels = Kernels;
+AgamottoEye.ReLu = ReLu;
 
 if(window){
     window.AgamottoEye = AgamottoEye;

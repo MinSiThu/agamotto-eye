@@ -8,6 +8,14 @@ let largestNumber = (arr)=>{
     return biggestNumber;
 }
 
+let ReLu = (value)=>{
+    if(value > 0){
+        return value
+    }
+    return 0;
+}
+
 module.exports = {
     largestNumber,
+    ReLu,
 }

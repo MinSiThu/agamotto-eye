@@ -1,5 +1,7 @@
 let Pixel = require("./Pixel");
-let helpers = require("../utils/pixel-helper");
+let Helper = require("../utils/pixel-helper");
+let Kernels = require("../kernels");
+let {ReLu} = require("../utils/math");
 
 class PixelMaster{
     constructor({data,width,height}){
@@ -34,7 +36,7 @@ class PixelMaster{
                             alphaIndex:this.pixels[index+3]
                         })
             pixel.toGrayScale()
-            helpers.pushPixelToArray(pixel.getIndexArray(),outputPixels)
+            Helper.pushPixelToArray(pixel.getIndexArray(),outputPixels)
         }
         this.pixels = new Uint8ClampedArray(outputPixels);
     }
@@ -49,7 +51,7 @@ class PixelMaster{
                             alphaIndex:this.pixels[index+3]
                         })
             pixel.brighten(adjustment)
-            helpers.pushPixelToArray(pixel.getIndexArray(),outputPixels)
+            Helper.pushPixelToArray(pixel.getIndexArray(),outputPixels)
         }
         this.pixels = new Uint8ClampedArray(outputPixels);
     }
@@ -64,7 +66,7 @@ class PixelMaster{
                             alphaIndex:this.pixels[index+3]
                         })
             pixel.threshold(threshold)
-            helpers.pushPixelToArray(pixel.getIndexArray(),outputPixels)
+            Helper.pushPixelToArray(pixel.getIndexArray(),outputPixels)
         }
         this.pixels = new Uint8ClampedArray(outputPixels);
     }
@@ -112,7 +114,27 @@ class PixelMaster{
         })
     }
 
+    extractRGBchannels(){
+        let redChannel = [], greenChannel = [], blueChannel = [];
+        for (let index = 0; index < this.pixels.length; index+=4) {
+            redChannel.push(this.pixels[index]);
+            greenChannel.push(this.pixels[index+1])
+            blueChannel.push(this.pixels[index+2])
+        }
+        return {
+            redChannel,greenChannel,blueChannel
+        }
+    }
 
+    extractFeatures({filter=Kernels.edgeDetectorKernel,activationFunction=ReLu}){
+        let channels = this.extractRGBchannels();
+        console.log(channels);
+        
+        let redChannel = Helper.applyKernelToChannel(channels.redChannel,filter);
+        let greenChannel = Helper.applyKernelToChannel(channels.greenChannel,filter);
+        let blueChannel = Helper.applyKernelToChannel(channels.blueChannel,filter);
+        
+    }
 }
 
 module.exports = PixelMaster;

@@ -11,7 +11,9 @@
     <h1>Agamotto Eye</h1>
     <div>
         <img id="A" alt="" src="/test-imgs/lena.png"/>
-        <img id="C" alt=""/>
+        <img id="R" alt=""/>
+        <img id="G" alt=""/>
+        <img id="B" alt=""/>
     </div>
 </body>
 
@@ -25,13 +27,19 @@
 
     (async function(){
         let processor = await AgamottoEye.fromImageURL("/test-imgs/lena.png");
-        processor.setDimensions(28,28)
-        let pixelMaster = processor.getPixelMaster(); 
-        processor.renderImage(pixelMaster);
-        console.log(processor.getDataURL());
+        let pixelMaster = processor.getPixelMaster();
         
+        pixelMaster.extractFeatures({
+            channels:3,
+            size:{width:28,height:28},
+            fliter:AgamottoEye.kernels.edgeDetectorKernel,
+            activationFunction:AgamottoEye.ReLu,
+        })
 
-        document.getElementById("C").src = processor.getDataURL();
+        processor.renderImage(pixelMaster)
+        document.getElementById("R").src = processor.getRedDataURL();
+        document.getElementById("G").src = processor.getGreenDataURL();
+        document.getElementById("B").src = processor.getBlueDataURL();
     })()
 </script>
 </html>
